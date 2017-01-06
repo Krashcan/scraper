@@ -1,7 +1,7 @@
 package engine
 
 import(
-	. "bitbucket.org/krashcan/scraper/model"
+	"bitbucket.org/krashcan/scraper/model"
 	"golang.org/x/net/html"
 	"strings"
 	"io"
@@ -9,8 +9,7 @@ import(
 	"strconv"
 )
 
-//This is the main function for parsing movie info from amazon prime
-
+//ScrapeMovieDetail parses the movie info into the Movie struct using net/html package
 func ScrapeMovieDetail(b io.Reader){
 	z := html.NewTokenizer(b)	
 	//Assigning boolean variables to allow linear search(if boolean=true,dont look for that info) without having to start from the beginning for next info
@@ -25,14 +24,14 @@ func ScrapeMovieDetail(b io.Reader){
 
 			if tag.Data =="h1" && !foundTitleAndDate{
 				if tt = z.Next(); tt == html.TextToken {//Movie title is in the first h1 tag. Dont look for an h1 tag after finding the first one.
-       				Movie.Title = strings.TrimSpace(z.Token().Data)
+       				model.Movie.Title = strings.TrimSpace(z.Token().Data)
    					tt= z.Next()
    				}
    				for{
    					if tt== html.TextToken{//Date is in the next text token after movie title. Better to evaluate them together.
    						year,err := strconv.Atoi(z.Token().Data)
    						HandleError("strconv",err)
-   						Movie.Release_year = year
+   						model.Movie.ReleaseYear = year
    						break
    					}
    					tt= z.Next()	
@@ -41,7 +40,7 @@ func ScrapeMovieDetail(b io.Reader){
 			}else if tag.Data =="img" && !foundPoster{
 				for _, a := range tag.Attr {//Poster is in the first image tag after release year. 
     				if a.Key == "src" {
-        			Movie.Poster = a.Val
+        			model.Movie.Poster = a.Val
         			foundPoster = true //Making the boolean value true so that program doesnt care about this if condition
         			break
     				}
@@ -54,7 +53,7 @@ func ScrapeMovieDetail(b io.Reader){
    						if tag.Data =="a"{
 							for _, a := range tag.Attr {
     							if a.Key == "href" {
-        							Movie.Similars = append(Movie.Similars,ExtractId(a.Val)) //Evaluate Movie ID from url,store it in the slice
+        							model.Movie.Similars = append(model.Movie.Similars,ExtractID(a.Val)) //Evaluate Movie ID from url,store it in the slice
     							}
 	   						}
 	   					}
@@ -78,7 +77,7 @@ func ScrapeMovieDetail(b io.Reader){
 								if tt == html.StartTagToken{
 									if tag.Data =="a"{
 										if tt=z.Next(); tt== html.TextToken{
-											Movie.Actors = append(Movie.Actors,strings.TrimSpace(z.Token().Data))
+											model.Movie.Actors = append(model.Movie.Actors,strings.TrimSpace(z.Token().Data))
 										}
 									}	
 								}else if tt == html.EndTagToken{
@@ -95,7 +94,8 @@ func ScrapeMovieDetail(b io.Reader){
 	}
 }
 
-func ExtractId(v string)string{
+//ExtractID derives the movie id from amazon prime movie URL
+func ExtractID(v string)string{
 	a := strings.Split(v,"/")//The movie url follows a certain pattern. This slice will always be ["http:","","www.amazon.de","gb,"product",MOVIE ID,"other useles data"]
 	return a[5]
 }

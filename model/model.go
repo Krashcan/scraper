@@ -1,8 +1,9 @@
 package model
 
+//Movie struct stores all the required details of a movie queried through its ID.
 var Movie struct{
 	Title string `json:"title"`;
-	Release_year int `json:"release_year"`;
+	ReleaseYear int `json:"release_year"`;
 	Actors []string `json:"actors"`;
 	Poster string `json:"poster"`; 
 	Similars []string `json:"similar_ids"`
