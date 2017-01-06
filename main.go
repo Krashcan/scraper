@@ -1,18 +1,14 @@
 package main
 
-import(
-	"net/http"
-	"log"
-	"github.com/julienschmidt/httprouter"
+import (
 	"bitbucket.org/krashcan/scraper/handler"
+	"github.com/julienschmidt/httprouter"
+	"log"
+	"net/http"
 )
 
-func main(){
+func main() {
 	router := httprouter.New()
-	router.GET("/movies/amazon/:id",handler.LiveAmazonScraper)
-	log.Fatal(http.ListenAndServe(":8080",router))
+	router.GET("/movies/amazon/:id", handler.LiveAmazonScraper)
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
-
-
-
-
