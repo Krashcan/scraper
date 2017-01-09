@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"bitbucket.org/krashcan/scraper/model"
+	"github.com/krashcan/scraper/model"
 	"golang.org/x/net/html"
 	"log"
 	"strconv"

@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"bitbucket.org/krashcan/scraper/controller"
-	"bitbucket.org/krashcan/scraper/model"
+	"github.com/krashcan/scraper/controller"
+	"github.com/krashcan/scraper/model"
 	"encoding/json"
 	"fmt"
 	"github.com/julienschmidt/httprouter"

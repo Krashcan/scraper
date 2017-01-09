@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bitbucket.org/krashcan/scraper/handler"
+	"github.com/krashcan/scraper/handler"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"

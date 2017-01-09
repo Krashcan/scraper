@@ -1,6 +1,10 @@
 # Amazon Prime Scraper
 
-The project needs to be in $GOPATH/src/bitbucket.org/krashcan/ locally.
+`go get github.com/krashcan/scraper`
+
+`go build github.com/krashcan/scraper`
+
+`scraper`
 
 `localhost:8080/movies/amazon/:id `
 
