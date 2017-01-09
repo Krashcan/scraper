@@ -1,4 +1,4 @@
-# Amazon Prime Scraper [![Build Status](https://travis-ci.org/krashcan/scraper.svg?branch=master)](https://travis-ci.org/krashcan/scraper) 
+# Amazon Prime Scraper [![Build Status](https://travis-ci.org/Krashcan/scraper.svg?branch=master)](https://travis-ci.org/Krashcan/scraper) 
 
 `go get github.com/krashcan/scraper`
 
